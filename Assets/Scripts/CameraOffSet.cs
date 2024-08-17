@@ -12,7 +12,7 @@ public class CameraOffSet : MonoBehaviour
 
 
     // Update is called once per frame 
-    void FixedUpdate()
+    void LateUpdate()
     {   
         Vector3 targetPosition = target.position + offset;
         targetPosition.z = transform.position.z;

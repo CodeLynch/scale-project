@@ -4,31 +4,105 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("Properties")]
     [SerializeField] private float speed = 10.0f;
     [SerializeField] private float Dash = 100; // Charge Attack
+    [SerializeField] private AnimationClip IdleAnim;
+    [SerializeField] private AnimationClip RunHorizAnim;
+    [SerializeField] private AnimationClip RunTopAnim;
+    [SerializeField] private AnimationClip RunBottomAnim;
 
+
+    private bool faceRight = true;
+    private bool isMoving = false;
+    private Animator anim;
+    private string currentAnim;
     // Start is called before the first frame update
     void Start()
     {
-        
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Movement
-        if(Input.GetKey("w")){
-            Debug.Log("W pressed");
-            transform.position = new Vector2(transform.position.x, transform.position.y + (speed * Time.deltaTime));
+
+        if (!isMoving)
+        {
+            changeAnim(IdleAnim.name);
         }
-        if(Input.GetKey("s")){
-            transform.position = new Vector2(transform.position.x, transform.position.y - (speed * Time.deltaTime));
+
+
+        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+        {
+            isMoving = true;
+            if (Input.GetAxisRaw("Horizontal") != 0 && Input.GetAxisRaw("Vertical") != 0)
+            {
+                changeAnim(RunHorizAnim.name);
+                if (Input.GetAxisRaw("Horizontal") == 1)
+                {
+                    transform.localScale = new Vector2(1, 1);
+                }
+                else
+                {
+                    transform.localScale = new Vector2(-1, 1);
+                }
+            }
+            else if (Input.GetAxisRaw("Vertical") != 0)
+            {
+                if (Input.GetAxisRaw("Vertical") == 1)
+                {
+                    changeAnim(RunTopAnim.name);
+                }
+                else
+                {
+                    changeAnim(RunBottomAnim.name);
+                }
+            }
+            else if (Input.GetAxisRaw("Horizontal") != 0)
+            {
+                changeAnim(RunHorizAnim.name);
+                if (Input.GetAxisRaw("Horizontal") == 1)
+                {
+                    transform.localScale = new Vector2(1, 1);
+                }
+                else
+                {
+                    transform.localScale = new Vector2(-1, 1);
+                }
+            }
         }
-        if(Input.GetKey("a")){
-            transform.position = new Vector2(transform.position.x - (speed * Time.deltaTime), transform.position.y);
+        else
+        {
+            isMoving = false;
         }
-        if(Input.GetKey("d")){
-            transform.position = new Vector2(transform.position.x + (speed * Time.deltaTime), transform.position.y);
+
+
+            //Movement
+        if (Input.GetKey("w")) {
+                transform.position = new Vector2(transform.position.x, transform.position.y + (speed * Time.deltaTime));
+            }
+        if (Input.GetKey("s")) {
+                transform.position = new Vector2(transform.position.x, transform.position.y - (speed * Time.deltaTime));
+            }
+        if (Input.GetKey("a")) {
+                transform.position = new Vector2(transform.position.x - (speed * Time.deltaTime), transform.position.y);
+            }
+        if (Input.GetKey("d")) {
+                transform.position = new Vector2(transform.position.x + (speed * Time.deltaTime), transform.position.y);
+            }
+        
+
+    }
+    private void changeAnim(string state)
+    {
+        if (currentAnim == state)
+        {
+            return;
+        }
+        else
+        {
+            anim.Play(state);
         }
     }
 }
