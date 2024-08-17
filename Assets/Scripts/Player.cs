@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float speed = 10.0f;
-    [SerializeField] private float AccelerationDash = 100;
+    [SerializeField] private float Dash = 100; // Charge Attack
 
     // Start is called before the first frame update
     void Start()
@@ -16,7 +16,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         //Movement
         if(Input.GetKey("w")){
             Debug.Log("W pressed");
@@ -31,6 +30,5 @@ public class Player : MonoBehaviour
         if(Input.GetKey("d")){
             transform.position = new Vector2(transform.position.x + (speed * Time.deltaTime), transform.position.y);
         }
-        
     }
 }
