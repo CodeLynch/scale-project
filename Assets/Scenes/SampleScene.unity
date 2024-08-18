@@ -159,11 +159,13 @@ MonoBehaviour:
   Dash: 100
   growthRate: 0.2
   maxSize: 3
+  DashSpeed: 20
+  DashCooldown: 1
+  DashDuration: 0.3
   IdleAnim: {fileID: 7400000, guid: e77935ec918f0f245b6f27f51ac65c35, type: 2}
   RunHorizAnim: {fileID: 7400000, guid: dbc57159b3c590d4586cfd60ce700f38, type: 2}
   RunTopAnim: {fileID: 7400000, guid: 5c7778964a3c2c14ebba3df5ccd25100, type: 2}
   RunBottomAnim: {fileID: 7400000, guid: 0cd3148ce1c6b06458b71749425628c2, type: 2}
-  spaceBg: {fileID: 2090589530}
   size: 1
 --- !u!212 &645497018
 SpriteRenderer:
@@ -503,7 +505,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 6.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

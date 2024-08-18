@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float Dash = 100; // Charge Attack
     [SerializeField] private float growthRate = 0.2f;
     [SerializeField] private float maxSize = 2f;
+    [SerializeField] private float DashSpeed;
+    [SerializeField] private float DashCooldown;
+    [SerializeField] private float DashDuration;
     [SerializeField] private AnimationClip IdleAnim;
     [SerializeField] private AnimationClip RunHorizAnim;
     [SerializeField] private AnimationClip RunTopAnim;
@@ -16,14 +19,23 @@ public class Player : MonoBehaviour
 
     [Header("Public Attributes")]
     public float size = 1;
+    private float origDashDuration;
+    private float origDashCooldown;
     private bool faceRight = true;
     private bool isMoving = false;
+    private bool isDashing = false;
+    private bool onDashCoolDown = false;
     private Animator anim;
     private string currentAnim;
+    private Rigidbody2D rb;
+   
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        origDashDuration = DashDuration;
+        origDashCooldown = DashCooldown;
     }
 
     // Update is called once per frame
@@ -39,7 +51,7 @@ public class Player : MonoBehaviour
             transform.localScale = new Vector2 (size, size);
         }
 
-        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0 || Input.GetKey(KeyCode.Space))
         {
             isMoving = true;
             if (Input.GetAxisRaw("Horizontal") != 0 && Input.GetAxisRaw("Vertical") != 0)
@@ -93,11 +105,74 @@ public class Player : MonoBehaviour
                 transform.position = new Vector2(transform.position.x, transform.position.y - (speed * Time.deltaTime));
             }
         if (Input.GetKey("a")) {
-                transform.position = new Vector2(transform.position.x - (speed * Time.deltaTime), transform.position.y);
+            if (faceRight)
+            {
+                faceRight = false;
+            }
+            transform.position = new Vector2(transform.position.x - (speed * Time.deltaTime), transform.position.y);
             }
         if (Input.GetKey("d")) {
-                transform.position = new Vector2(transform.position.x + (speed * Time.deltaTime), transform.position.y);
+            if (!faceRight)
+            {
+                faceRight = true;
             }
+            transform.position = new Vector2(transform.position.x + (speed * Time.deltaTime), transform.position.y);
+            }
+
+        if (Input.GetKey(KeyCode.Space) && DashCooldown == origDashCooldown && !onDashCoolDown)
+        {
+            isDashing = true;
+        }
+        else if (onDashCoolDown)
+        {
+            if(DashCooldown <= 0)
+            {
+                DashCooldown = origDashCooldown;
+                onDashCoolDown = false;
+            }
+            else
+            {
+                DashCooldown -= Time.deltaTime;
+            }
+        }
+
+        if (isDashing)
+        {
+            if (DashDuration <= 0)
+            {
+                isDashing = false;
+                DashDuration = origDashDuration;
+                rb.velocity = Vector2.zero;
+                onDashCoolDown = true;
+            }
+            else
+            {
+                DashDuration -= Time.deltaTime;
+                if (Input.GetAxisRaw("Vertical") != 0)
+                {
+                    if (Input.GetAxisRaw("Vertical") == 1)
+                    {
+                        rb.velocity = Vector2.up * DashSpeed;
+                    }
+                    else
+                    {
+                        rb.velocity = Vector2.down * DashSpeed;
+                    }
+                }
+                else
+                {
+
+                    if (faceRight)
+                    {
+                        rb.velocity = Vector2.right * DashSpeed;
+                    }
+                    else
+                    {
+                        rb.velocity = Vector2.left * DashSpeed;
+                    }
+                }
+            }
+        }
         
 
     }
