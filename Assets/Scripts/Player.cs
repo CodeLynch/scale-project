@@ -17,6 +17,9 @@ public class Player : MonoBehaviour
     private bool isMoving = false;
     private Animator anim;
     private string currentAnim;
+    // Health thresholds (S = 0~40, M = 41~ 70, L = 71~100)
+    public int maxHealth = 100;
+    public int currentHealth = 30;
     // Start is called before the first frame update
     void Start()
     {
@@ -103,6 +106,31 @@ public class Player : MonoBehaviour
         else
         {
             anim.Play(state);
+        }
+    }
+    void TakeDamage(int amount)
+    {
+        currentHealth -= amount;
+        if (currentHealth <= 0)
+        {
+            // Gameover logic here
+        }
+    }
+    void Heal(int amount)
+    {
+        currentHealth += amount;
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemies"))
+        {
+            TakeDamage(10);
+            Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Items"))
+        {
+            Heal(10);
+            Destroy(collision.gameObject);
         }
     }
 }
