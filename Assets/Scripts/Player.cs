@@ -7,12 +7,15 @@ public class Player : MonoBehaviour
     [Header("Properties")]
     [SerializeField] private float speed = 10.0f;
     [SerializeField] private float Dash = 100; // Charge Attack
+    [SerializeField] private float growthRate = 0.2f;
+    [SerializeField] private float maxSize = 2f;
     [SerializeField] private AnimationClip IdleAnim;
     [SerializeField] private AnimationClip RunHorizAnim;
     [SerializeField] private AnimationClip RunTopAnim;
     [SerializeField] private AnimationClip RunBottomAnim;
 
-
+    [Header("Public Attributes")]
+    public float size = 1;
     private bool faceRight = true;
     private bool isMoving = false;
     private Animator anim;
@@ -31,7 +34,10 @@ public class Player : MonoBehaviour
         {
             changeAnim(IdleAnim.name);
         }
-
+        if(size > 1 && size <= maxSize)
+        {
+            transform.localScale = new Vector2 (size, size);
+        }
 
         if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
         {
@@ -41,11 +47,12 @@ public class Player : MonoBehaviour
                 changeAnim(RunHorizAnim.name);
                 if (Input.GetAxisRaw("Horizontal") == 1)
                 {
-                    transform.localScale = new Vector2(1, 1);
+
+                    transform.localScale = new Vector2(size, size);
                 }
                 else
                 {
-                    transform.localScale = new Vector2(-1, 1);
+                    transform.localScale = new Vector2(-size, size);
                 }
             }
             else if (Input.GetAxisRaw("Vertical") != 0)
@@ -64,11 +71,11 @@ public class Player : MonoBehaviour
                 changeAnim(RunHorizAnim.name);
                 if (Input.GetAxisRaw("Horizontal") == 1)
                 {
-                    transform.localScale = new Vector2(1, 1);
+                    transform.localScale = new Vector2(size, size);
                 }
                 else
                 {
-                    transform.localScale = new Vector2(-1, 1);
+                    transform.localScale = new Vector2(-size, size);
                 }
             }
         }
@@ -103,6 +110,19 @@ public class Player : MonoBehaviour
         else
         {
             anim.Play(state);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Fruit")
+        {
+            if(size <= maxSize)
+            {
+                size += growthRate;
+                Camera.main.orthographicSize += 1;
+            }
+            Destroy(collision.gameObject);
         }
     }
 }
