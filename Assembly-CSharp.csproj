@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraOffSet.cs" />
     <Compile Include="Assets\Scripts\EnemieSpwner.cs" />
+    <Compile Include="Assets\Scripts\Fruit.cs" />
     <Compile Include="Assets\Scripts\RandomItemSpawner.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
   </ItemGroup>

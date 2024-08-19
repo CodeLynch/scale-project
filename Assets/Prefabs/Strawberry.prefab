@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7908157744501868380
+--- !u!1 &8823506582093457138
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5189708915365254247}
-  - component: {fileID: -7254600984955952019}
-  - component: {fileID: 8716485634681554498}
-  - component: {fileID: 6133028432733193571}
-  - component: {fileID: 6629807915874683481}
+  - component: {fileID: 6902192138248762825}
+  - component: {fileID: 909293067671553475}
+  - component: {fileID: 4814606595292357837}
+  - component: {fileID: 8015037816456407020}
+  - component: {fileID: 4497250694470975415}
   m_Layer: 0
-  m_Name: Orange
+  m_Name: Strawberry
   m_TagString: Fruit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5189708915365254247
+--- !u!4 &6902192138248762825
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7908157744501868380}
+  m_GameObject: {fileID: 8823506582093457138}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 5}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -0.598, y: -1.94, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &-7254600984955952019
+--- !u!212 &909293067671553475
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7908157744501868380}
+  m_GameObject: {fileID: 8823506582093457138}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -75,25 +75,38 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 08cb521134f65084e981c2c128f94a93, type: 3}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: 7e55fbb126a8e3c47a1f99f43fa9e5a0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &8716485634681554498
+--- !u!114 &4814606595292357837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8823506582093457138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c415fc5e4e9282c439b9ea2aa7463580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fruitValue: 1
+--- !u!58 &8015037816456407020
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7908157744501868380}
+  m_GameObject: {fileID: 8823506582093457138}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -119,33 +132,20 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.002951473, y: -0.040142596}
+  m_Offset: {x: -0.01824665, y: 0}
   serializedVersion: 2
-  m_Radius: 0.24699157
---- !u!114 &6133028432733193571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7908157744501868380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c415fc5e4e9282c439b9ea2aa7463580, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fruitValue: 1
---- !u!95 &6629807915874683481
+  m_Radius: 0.24089766
+--- !u!95 &4497250694470975415
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7908157744501868380}
+  m_GameObject: {fileID: 8823506582093457138}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8f6d325c2d1a34547bf2f5932accd5d6, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7a3e911187a12ec48b17f8b2b6ba9ef1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

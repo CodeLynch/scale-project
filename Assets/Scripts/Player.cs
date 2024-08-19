@@ -7,15 +7,17 @@ public class Player : MonoBehaviour
     [Header("Properties")]
     [SerializeField] private float speed = 10.0f;
     [SerializeField] private float Dash = 100; // Charge Attack
-    [SerializeField] private float growthRate = 0.2f;
+    [SerializeField] public float growthRate = 0.2f;
     [SerializeField] private float maxSize = 2f;
     [SerializeField] private float DashSpeed;
     [SerializeField] private float DashCooldown;
     [SerializeField] private float DashDuration;
+    [SerializeField] private TrailRenderer trail;
     [SerializeField] private AnimationClip IdleAnim;
     [SerializeField] private AnimationClip RunHorizAnim;
     [SerializeField] private AnimationClip RunTopAnim;
     [SerializeField] private AnimationClip RunBottomAnim;
+
 
     [Header("Public Attributes")]
     public float size = 1;
@@ -46,10 +48,30 @@ public class Player : MonoBehaviour
         {
             changeAnim(IdleAnim.name);
         }
-        if(size > 1 && size <= maxSize)
+        if (size > 1 && size <= maxSize)
         {
-            transform.localScale = new Vector2 (size, size);
+            transform.localScale = new Vector2(size, size);
+            trail.widthMultiplier = size;
+            trail.time = size;
         }
+        else
+        {
+            trail.widthMultiplier = size;
+            trail.time = size;
+        }
+
+        
+        if(transform.localScale.x < 0)
+        {
+            faceRight = false;
+        }
+        else
+        {
+            faceRight = true;
+        }
+
+
+
 
         if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0 || Input.GetKey(KeyCode.Space))
         {
@@ -144,9 +166,11 @@ public class Player : MonoBehaviour
                 DashDuration = origDashDuration;
                 rb.velocity = Vector2.zero;
                 onDashCoolDown = true;
+                trail.emitting = false;
             }
             else
             {
+                trail.emitting = true;
                 DashDuration -= Time.deltaTime;
                 if (Input.GetAxisRaw("Vertical") != 0)
                 {
@@ -192,10 +216,11 @@ public class Player : MonoBehaviour
     {
         if(collision.gameObject.tag == "Fruit")
         {
+            Fruit fruit = collision.gameObject.GetComponent<Fruit>();
             if(size <= maxSize)
             {
-                size += growthRate;
-                Camera.main.orthographicSize += 1;
+                size += growthRate * fruit.fruitValue;
+                //Camera.main.orthographicSize += 1;
             }
             Destroy(collision.gameObject);
         }
