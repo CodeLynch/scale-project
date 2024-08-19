@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //MovingAnimation
         if (!isMoving)
         {
             changeAnim(IdleAnim.name);
@@ -221,6 +221,15 @@ public class Player : MonoBehaviour
             {
                 size += growthRate * fruit.fruitValue;
                 //Camera.main.orthographicSize += 1;
+            }
+            Destroy(collision.gameObject);
+        }
+        if(collision.gameObject.tag == "Enemy"){
+            if(size<=1){
+                Destroy(this);
+            } else {
+                this.size -= growthRate;
+                Camera.main.orthographicSize -= 1;
             }
             Destroy(collision.gameObject);
         }
