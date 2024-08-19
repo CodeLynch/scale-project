@@ -4,31 +4,45 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public Rigidbody2D rb;
+
     [SerializeField] private float speed = 10.0f;
-    [SerializeField] private float Dash = 100; // Charge Attack
+    [SerializeField] private float dashSpeed = 0f;
+    [SerializeField] private float dashLenght = 0.5f , DashOnCooldown = 1f;
+    
+    private Vector2 moveInput;
+    private float activeSpeed;
+    private float dashCounter;
+    private float dashCoolCounter;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Start(){
+        activeSpeed = speed;
     }
-
     // Update is called once per frame
     void Update()
     {
         //Movement
-        if(Input.GetKey("w")){
-            Debug.Log("W pressed");
-            transform.position = new Vector2(transform.position.x, transform.position.y + (speed * Time.deltaTime));
+        moveInput.x = Input.GetAxisRaw("Horizontal");
+        moveInput.y = Input.GetAxisRaw("Vertical");
+        
+        moveInput.Normalize();
+        rb.velocity = moveInput * activeSpeed;
+        
+        if(Input.GetKeyDown(KeyCode.Space)){
+            if(dashCoolCounter <= 0 && dashCounter <=0){
+                activeSpeed = dashSpeed;
+                dashCounter = dashLenght;
+            }
         }
-        if(Input.GetKey("s")){
-            transform.position = new Vector2(transform.position.x, transform.position.y - (speed * Time.deltaTime));
+        if(dashCounter > 0){
+            dashCounter -= Time.deltaTime;
+            if(dashCounter <= 0){
+                activeSpeed = speed;
+                dashCoolCounter = dashCounter;
+            }
         }
-        if(Input.GetKey("a")){
-            transform.position = new Vector2(transform.position.x - (speed * Time.deltaTime), transform.position.y);
-        }
-        if(Input.GetKey("d")){
-            transform.position = new Vector2(transform.position.x + (speed * Time.deltaTime), transform.position.y);
+        if(dashCoolCounter > 0){
+            dashCoolCounter -= Time.deltaTime;
         }
     }
 }

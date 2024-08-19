@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class RandomItemSpawner : MonoBehaviour
 {
-
-    public List<Item> Items = new List<Item>();
     public List<GameObject> ItemsToSpawn = new List<GameObject>();    
     [SerializeField] private float Radius = 1.0f;
     [SerializeField] private float targetTime = 60.0f;
@@ -33,13 +31,7 @@ public class RandomItemSpawner : MonoBehaviour
         int random = Random.Range(0, ItemsToSpawn.Count);
         Instantiate(ItemsToSpawn[random], randomPos, Quaternion.identity);
     }
-    private void OnDrawnGizmos(){
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(this.transform.position, Radius);
+    void ItemTimer(){
+        
     }
-}
-[System.Serializable]
-public class Item{
-    public GameObject ItemPrefab;
-    public int rate;    
 }
