@@ -21,8 +21,6 @@ public class RandomItemSpawner : MonoBehaviour
         if(targetTime <= 0 && Limit > 0){
             Timer();
         }
-
-
     }
     GameObject Timer(){
         //Spawn Random Object

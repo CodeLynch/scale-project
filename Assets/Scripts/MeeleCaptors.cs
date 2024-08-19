@@ -11,8 +11,10 @@ public class MeeleCaptors : MonoBehaviour
     [Header ("Public Attributes")]
     [SerializeField] private float distanceBetween;
     [SerializeField] private float distanceWonder;
+    [SerializeField] private float range;
     private float distance;
-
+    private float stoppingDistance = 3.0f;
+    private Vector2 wonder;
     void Start(){
         player = GameObject.Find("Player");
     }
@@ -22,11 +24,15 @@ public class MeeleCaptors : MonoBehaviour
     {
         //Tracking the player distance against THIS distance
         distance = Vector2.Distance(transform.position, player.transform.position);
-        Vector2 direction = player.transform.position - transform.position;
-        direction.Normalize();
         // Approach if the distance is less than what is needed
         if(distance < distanceBetween){
             transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, MovementSpeed*Time.deltaTime);
+        } else {
+            transform.position = Vector2.MoveTowards(this.transform.position, wonder, MovementSpeed * Time.deltaTime);
+            if(Vector2.Distance(transform.position, wonder) < range){
+                wonder = new Vector2(Random.Range(-distanceWonder, distanceWonder), Random.Range(-distanceWonder, distanceWonder));
+            }
         }
+        
     }
 }

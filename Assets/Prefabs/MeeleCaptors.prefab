@@ -47,7 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSpeed: 5
   distanceBetween: 6
-  distanceWonder: 3
+  distanceWonder: 10
+  range: 0.5
 --- !u!212 &-515876163987950610
 SpriteRenderer:
   m_ObjectHideFlags: 0
