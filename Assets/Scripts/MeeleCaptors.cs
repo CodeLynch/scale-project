@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MeeleCaptors : MonoBehaviour
@@ -13,7 +14,6 @@ public class MeeleCaptors : MonoBehaviour
     [SerializeField] private float distanceWonder;
     [SerializeField] private float range;
     private float distance;
-    private float stoppingDistance = 3.0f;
     private Vector2 wonder;
     void Start(){
         player = GameObject.Find("Player");
@@ -33,6 +33,5 @@ public class MeeleCaptors : MonoBehaviour
                 wonder = new Vector2(Random.Range(-distanceWonder, distanceWonder), Random.Range(-distanceWonder, distanceWonder));
             }
         }
-        
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [Header("Properties")]
-    [SerializeField] private float HealthPoint = 100;
     [SerializeField] private float speed = 10.0f;
     [SerializeField] private float Dash = 100; // Charge Attack
     [SerializeField] private float growthRate = 0.2f;
@@ -30,11 +29,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Check if Player is Dead
-        if(this.HealthPoint == 0){
-            Destroy(this);
-        }
-
         //MovingAnimation
         if (!isMoving)
         {
@@ -130,12 +124,13 @@ public class Player : MonoBehaviour
             }
             Destroy(collision.gameObject);
         }
-        if(collision.gameObject.tag == "Bullet"){
-            //TakeDamage
-            this.HealthPoint--;
+        if(collision.gameObject.tag == "Enemy"){
+            if(size<=1){
+                Destroy(this);
+            } else {
+                this.size -= growthRate;
+            }
+            Destroy(collision.gameObject);
         }
-    }
-    public void TakeDamage(float damage){
-        this.HealthPoint -= damage;
     }
 }
