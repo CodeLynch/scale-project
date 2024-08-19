@@ -129,6 +129,7 @@ public class Player : MonoBehaviour
                 Destroy(this);
             } else {
                 this.size -= growthRate;
+                Camera.main.orthographicSize -= 1;
             }
             Destroy(collision.gameObject);
         }
