@@ -6,7 +6,7 @@ using UnityEngine;
 public class RandomItemSpawner : MonoBehaviour
 {
 
-    public List<GameObject> Items = new List<GameObject>();    
+    public List<item> Items = new List<item>();    
     [SerializeField] private float Radius = 1.0f;
     [SerializeField] private float targetTime = 60.0f;
     private float orgTime;
@@ -22,9 +22,19 @@ public class RandomItemSpawner : MonoBehaviour
             Timer();
         }
     }
-    void Timer(){
+    GameObject Timer(){
+        //Spawn Random Object
         Vector3 randomPos = Random.insideUnitCircle * Radius;
-        Instantiate(Items[Random.Range(0, Items.Count)], randomPos, Quaternion.identity);
-        targetTime += orgTime;
+        int random = Random.Range(0, Items.Count);
+        GameObject item = Items[Random.Range(0, Items.Count)].preFab;
+        Instantiate(item, randomPos, Quaternion.identity);
+        //Reset Time
+        targetTime = orgTime;
+
+        return item;
     }
+}
+[System.Serializable]
+public class item{
+    public GameObject preFab;
 }

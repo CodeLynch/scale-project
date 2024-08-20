@@ -7,6 +7,6 @@ public class Fruit : MonoBehaviour
 {
     [Header("Properties")]
     [SerializeField] public float fruitValue;
-
+    public GameObject preFab;
     
 }
