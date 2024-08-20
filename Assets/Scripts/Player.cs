@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private bool isFlashing = false;
-
+   
     // Start is called before the first frame update
     void Start()
     {
