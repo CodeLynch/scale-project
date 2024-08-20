@@ -7,8 +7,10 @@ public class RandomItemSpawner : MonoBehaviour
 {
 
     public List<GameObject> Items = new List<GameObject>();
+    public List<GameObject> ItemsToSpawn = new List<GameObject>();    
     [SerializeField] private float Radius = 1.0f;
     [SerializeField] private float targetTime = 60.0f;
+    [SerializeField] private float Limit = 10;
     private float orgTime;
 
     void Start(){
@@ -17,19 +19,22 @@ public class RandomItemSpawner : MonoBehaviour
     void FixedUpdate()
     {
         targetTime -= Time.deltaTime;
-        if(targetTime <= 0){
+        if(targetTime <= 0 && Limit > 0){
             Timer();
         }
     }
-    GameObject Timer(){
-        //Spawn Random Object
-        Vector3 randomPos = Random.insideUnitCircle * Radius;
-        int random = Random.Range(0, Items.Count);
-        GameObject item = Items[Random.Range(0, Items.Count)];
-        Instantiate(item, randomPos, Quaternion.identity);
-        //Reset Time
+    void Timer(){
+        SpawnObjectRandom();
         targetTime = orgTime;
-
-        return item;
+        Limit--;
+    }
+    void SpawnObjectRandom(){
+        Vector3 randomPos = Random.insideUnitCircle * Radius;
+        int random = Random.Range(0, ItemsToSpawn.Count);
+        Instantiate(ItemsToSpawn[random], randomPos, Quaternion.identity);
+    }
+    private void OnDrawnGizmos(){
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(this.transform.position, Radius);
     }
 }

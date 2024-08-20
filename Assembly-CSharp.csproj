@@ -72,6 +72,9 @@
     <Compile Include="Assets\Scripts\Fruit.cs" />
     <Compile Include="Assets\Scripts\RandomItemSpawner.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\StarsBG.cs" />
+    <Compile Include="Assets\Scripts\GameOver.cs" />
+    <Compile Include="Assets\Scripts\GameState.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
