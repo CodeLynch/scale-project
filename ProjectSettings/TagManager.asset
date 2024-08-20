@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Fruit
   - Cage
+  - Win
+  - Lose
   layers:
   - Default
   - TransparentFX
