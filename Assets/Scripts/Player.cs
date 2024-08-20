@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -14,6 +15,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float DashDuration;
     [SerializeField] private TrailRenderer trail;
     [SerializeField] private AnimationClip IdleAnim;
+    [SerializeField] private AnimationClip IdleTopAnim;
+    [SerializeField] private AnimationClip IdleBottomAnim;
     [SerializeField] private AnimationClip RunHorizAnim;
     [SerializeField] private AnimationClip RunTopAnim;
     [SerializeField] private AnimationClip RunBottomAnim;
@@ -21,9 +24,18 @@ public class Player : MonoBehaviour
 
     [Header("Public Attributes")]
     public float size = 1;
+    
     private float origDashDuration;
     private float origDashCooldown;
-    private bool faceRight = true;
+    
+    /*Face Direction Values:
+    //1 for up
+    //2 for right
+    //3 for down
+    //4 for left
+    */
+    private short faceDir = 2;
+    
     private bool isMoving = false;
     private bool isDashing = false;
     private bool onDashCoolDown = false;
@@ -46,7 +58,7 @@ public class Player : MonoBehaviour
 
         if (!isMoving)
         {
-            changeAnim(IdleAnim.name);
+            UpdateFacing(faceDir);
         }
         if (size > 1 && size <= maxSize)
         {
@@ -61,19 +73,11 @@ public class Player : MonoBehaviour
         }
 
         
-        if(transform.localScale.x < 0)
-        {
-            faceRight = false;
-        }
-        else
-        {
-            faceRight = true;
-        }
 
 
 
 
-        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0 || Input.GetKey(KeyCode.Space))
+        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
         {
             isMoving = true;
             if (Input.GetAxisRaw("Horizontal") != 0 && Input.GetAxisRaw("Vertical") != 0)
@@ -121,27 +125,23 @@ public class Player : MonoBehaviour
 
             //Movement
         if (Input.GetKey("w")) {
+            faceDir = 1;
                 transform.position = new Vector2(transform.position.x, transform.position.y + (speed * Time.deltaTime));
             }
         if (Input.GetKey("s")) {
+            faceDir = 3;
                 transform.position = new Vector2(transform.position.x, transform.position.y - (speed * Time.deltaTime));
             }
         if (Input.GetKey("a")) {
-            if (faceRight)
-            {
-                faceRight = false;
-            }
+            faceDir = 4;
             transform.position = new Vector2(transform.position.x - (speed * Time.deltaTime), transform.position.y);
             }
         if (Input.GetKey("d")) {
-            if (!faceRight)
-            {
-                faceRight = true;
-            }
+            faceDir = 2;
             transform.position = new Vector2(transform.position.x + (speed * Time.deltaTime), transform.position.y);
             }
 
-        if (Input.GetKey(KeyCode.Space) && DashCooldown == origDashCooldown && !onDashCoolDown)
+        if (Input.GetKey(KeyCode.Space) && DashCooldown == origDashCooldown && !onDashCoolDown && (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0))
         {
             isDashing = true;
         }
@@ -186,7 +186,7 @@ public class Player : MonoBehaviour
                 else
                 {
 
-                    if (faceRight)
+                    if (faceDir == 2)
                     {
                         rb.velocity = Vector2.right * DashSpeed;
                     }
@@ -197,8 +197,33 @@ public class Player : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            trail.emitting = false;
+        }
         
 
+    }
+
+    private void UpdateFacing(short face)
+    {
+        switch (face) {
+            case 1:
+                changeAnim(IdleTopAnim.name);
+                break;
+            case 2:
+                transform.localScale = new Vector2(size, size);
+                changeAnim(IdleAnim.name);
+                break;
+            case 3:
+                changeAnim(IdleBottomAnim.name);
+                break;
+            case 4:
+                transform.localScale = new Vector2(-size, size);
+                changeAnim(IdleAnim.name);
+                break;
+            default: break;
+        }
     }
     private void changeAnim(string state)
     {
@@ -214,7 +239,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Fruit")
+        if (collision.gameObject.tag == "Fruit")
         {
             Fruit fruit = collision.gameObject.GetComponent<Fruit>();
             if(size <= maxSize)
@@ -226,7 +251,15 @@ public class Player : MonoBehaviour
         }
         else if (collision.gameObject.tag == "Cage")
         {
-            Destroy(collision.gameObject);
+            Debug.Log("requirements:" + size + "==" + maxSize + " and either " + collision.relativeVelocity.magnitude +"= 20");
+            if(size >= maxSize && collision.relativeVelocity.magnitude >= 20 )
+            {
+                Destroy(collision.gameObject);
+            }
+            else
+            {
+                rb.AddForce((Vector2.Reflect(rb.velocity, collision.contacts[0].normal) * 10), ForceMode2D.Impulse);
+            }
         }
     }
 }
