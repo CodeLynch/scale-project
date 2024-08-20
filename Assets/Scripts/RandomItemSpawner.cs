@@ -6,11 +6,9 @@ using UnityEngine;
 public class RandomItemSpawner : MonoBehaviour
 {
 
-    public List<GameObject> Items = new List<GameObject>();
-    public List<GameObject> ItemsToSpawn = new List<GameObject>();    
+    public List<GameObject> Items = new List<GameObject>();    
     [SerializeField] private float Radius = 1.0f;
     [SerializeField] private float targetTime = 60.0f;
-    [SerializeField] private float Limit = 10;
     private float orgTime;
 
     void Start(){
@@ -19,22 +17,14 @@ public class RandomItemSpawner : MonoBehaviour
     void FixedUpdate()
     {
         targetTime -= Time.deltaTime;
-        if(targetTime <= 0 && Limit > 0){
+        if(targetTime <= 0){
+            Debug.Log("Something");
             Timer();
         }
     }
     void Timer(){
-        SpawnObjectRandom();
-        targetTime = orgTime;
-        Limit--;
-    }
-    void SpawnObjectRandom(){
         Vector3 randomPos = Random.insideUnitCircle * Radius;
-        int random = Random.Range(0, ItemsToSpawn.Count);
-        Instantiate(ItemsToSpawn[random], randomPos, Quaternion.identity);
-    }
-    private void OnDrawnGizmos(){
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(this.transform.position, Radius);
+        Instantiate(Items[Random.Range(0, Items.Count)], randomPos, Quaternion.identity);
+        targetTime += orgTime;
     }
 }
