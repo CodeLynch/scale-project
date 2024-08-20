@@ -11,14 +11,18 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if (Instance == null)
+        if (Instance != null)
+        {
+            Destroy(GameManager.Instance.gameObject);
+        }else
         {
             Instance = this;
-        }else if (Instance != this)
-        {
-            Destroy(this);
         }
         DontDestroyOnLoad(this); 
+    }
+    public void Update()
+    {
+        
     }
 
     public void LoseGame()

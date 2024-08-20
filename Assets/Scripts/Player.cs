@@ -258,19 +258,14 @@ public class Player : MonoBehaviour
         }
         else if (collision.gameObject.tag == "Cage")
         {
-<<<<<<< HEAD
+
             if (size >= maxSize && collision.relativeVelocity.magnitude >= 20)
-=======
-            Debug.Log("requirements:" + size + "==" + maxSize + " and either " + collision.relativeVelocity.magnitude +"= 20");
-            if(size >= maxSize && collision.relativeVelocity.magnitude >= 20 )
->>>>>>> cceefc7fdb6513d92633fbd8a777e9d543794055
             {
                 Destroy(collision.gameObject);
             }
             else
             {
                 rb.AddForce((Vector2.Reflect(rb.velocity, collision.contacts[0].normal) * 10), ForceMode2D.Impulse);
-<<<<<<< HEAD
             }
         }
         if(collision.gameObject.tag == "Enemy"){
@@ -283,8 +278,6 @@ public class Player : MonoBehaviour
                 GameManager.Instance.LoseGame();
             } else {
                 this.size -= growthRate;
-=======
->>>>>>> cceefc7fdb6513d92633fbd8a777e9d543794055
             }
         }
     }

@@ -3,17 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-<<<<<<< HEAD
-  - Enemy
-  - Fruit
-  - Cage
-  - Win
-  - Lose
-=======
-  - Fruit
-  - Cage
->>>>>>> cceefc7fdb6513d92633fbd8a777e9d543794055
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -22,15 +12,9 @@ TagManager:
   - Water
   - UI
   - 
-<<<<<<< HEAD
   - 
   - 
   - 
-=======
-  - Background
-  - Post Particle Layer
-  - Player
->>>>>>> cceefc7fdb6513d92633fbd8a777e9d543794055
   - 
   - 
   - 
@@ -54,9 +38,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: UI
-    uniqueID: 720341163
-    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

@@ -10,13 +10,13 @@ public class AudioManager : MonoBehaviour
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        if (Instance == null)
+        if (Instance != null)
+        {
+            Destroy(AudioManager.Instance.gameObject);
+        }
+        else 
         {
             Instance = this;
-        }
-        else if (Instance != this)
-        {
-            Destroy(this);
         }
         DontDestroyOnLoad(this);
     }
