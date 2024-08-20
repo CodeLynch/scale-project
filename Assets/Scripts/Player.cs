@@ -224,5 +224,9 @@ public class Player : MonoBehaviour
             }
             Destroy(collision.gameObject);
         }
+        else if (collision.gameObject.tag == "Cage")
+        {
+            Destroy(collision.gameObject);
+        }
     }
 }
