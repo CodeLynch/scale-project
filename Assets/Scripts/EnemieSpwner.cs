@@ -1,26 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
-public class EnemieSpawner : MonoBehaviour
+public class EnemieSpwner : MonoBehaviour
 {
 
+<<<<<<< HEAD
     public List<GameObject> enemy = new List<GameObject>();
     [SerializeField] private Transform upperLeftBound;
     [SerializeField] private Transform lowerRightBound;
     [SerializeField] private float targetTime = 60.0f;
     private float orgTime;
+=======
+    public List<GameObject> enemies = new List<GameObject>();
+>>>>>>> cceefc7fdb6513d92633fbd8a777e9d543794055
 
-    void Start(){
-        orgTime = targetTime;
+    [SerializeField] private float Radius = 10;
+    [SerializeField] private float maxTime = 10;
+    
+    
+    private float randomTime = 0;
+
+    void Start()
+    {
+        randomTime = Random.Range(0, maxTime);
     }
     void FixedUpdate()
     {
-        targetTime -= Time.deltaTime;
-        if(targetTime <= 0){
-            Timer();
+        if(randomTime <= 0){
+            randomTime = Random.Range(0, maxTime);
+        }
+        randomTime -= Time.deltaTime;
+        if(randomTime <= 0.0f){
+            GenerateTimer();
         }
     }
+<<<<<<< HEAD
     GameObject Timer(){
         //Spawn Random Object
         Vector2 randomPos = new Vector2(Random.Range(upperLeftBound.position.x, lowerRightBound.position.x), 
@@ -42,5 +58,15 @@ public class EnemieSpawner : MonoBehaviour
         } else {
             return 2;
         }
+=======
+    void GenerateTimer(){
+        GenerateEnemies();
+        randomTime = Random.Range(0, maxTime);
+    }
+    public void GenerateEnemies(){
+        Vector3 randomPos = Random.insideUnitCircle * Radius;
+        int random = Random.Range(0, enemies.Count);
+        Instantiate(enemies[random], randomPos, Quaternion.identity);
+>>>>>>> cceefc7fdb6513d92633fbd8a777e9d543794055
     }
 }

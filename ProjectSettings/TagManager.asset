@@ -4,11 +4,16 @@
 TagManager:
   serializedVersion: 2
   tags:
+<<<<<<< HEAD
   - Enemy
   - Fruit
   - Cage
   - Win
   - Lose
+=======
+  - Fruit
+  - Cage
+>>>>>>> cceefc7fdb6513d92633fbd8a777e9d543794055
   layers:
   - Default
   - TransparentFX
@@ -17,9 +22,15 @@ TagManager:
   - Water
   - UI
   - 
+<<<<<<< HEAD
   - 
   - 
   - 
+=======
+  - Background
+  - Post Particle Layer
+  - Player
+>>>>>>> cceefc7fdb6513d92633fbd8a777e9d543794055
   - 
   - 
   - 
