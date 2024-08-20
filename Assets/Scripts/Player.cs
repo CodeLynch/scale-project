@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //MovingAnimation
         if (!isMoving)
         {
             UpdateFacing(faceDir);
@@ -249,6 +249,7 @@ public class Player : MonoBehaviour
             }
             Destroy(collision.gameObject);
         }
+<<<<<<< HEAD
         else if (collision.gameObject.tag == "Cage")
         {
             Debug.Log("requirements:" + size + "==" + maxSize + " and either " + collision.relativeVelocity.magnitude +"= 20");
@@ -260,6 +261,16 @@ public class Player : MonoBehaviour
             {
                 rb.AddForce((Vector2.Reflect(rb.velocity, collision.contacts[0].normal) * 10), ForceMode2D.Impulse);
             }
+=======
+        if(collision.gameObject.tag == "Enemy"){
+            if(size<=1){
+                Destroy(this);
+            } else {
+                this.size -= growthRate;
+                Camera.main.orthographicSize -= 1;
+            }
+            Destroy(collision.gameObject);
+>>>>>>> 91dceac1bd3b28ecb5e4582c448b78f22a43981a
         }
     }
 }

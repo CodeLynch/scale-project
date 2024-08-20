@@ -5,7 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Fruit
+<<<<<<< HEAD
   - Cage
+=======
+  - Enemy
+>>>>>>> 91dceac1bd3b28ecb5e4582c448b78f22a43981a
   layers:
   - Default
   - TransparentFX
