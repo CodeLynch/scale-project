@@ -42,12 +42,15 @@ public class Player : MonoBehaviour
     private Animator anim;
     private string currentAnim;
     private Rigidbody2D rb;
-   
+    private SpriteRenderer sr;
+    private bool isFlashing = false;
+
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
         origDashDuration = DashDuration;
         origDashCooldown = DashCooldown;
     }
@@ -242,18 +245,20 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "Fruit")
         {
             Fruit fruit = collision.gameObject.GetComponent<Fruit>();
-            if(size <= maxSize)
+            if (size <= maxSize)
             {
                 size += growthRate * fruit.fruitValue;
-                //Camera.main.orthographicSize += 1;
+            }
+            if (!isFlashing)
+            {
+                isFlashing = true;
+                StartCoroutine(Flash(Color.green));
             }
             Destroy(collision.gameObject);
         }
-<<<<<<< HEAD
         else if (collision.gameObject.tag == "Cage")
         {
-            Debug.Log("requirements:" + size + "==" + maxSize + " and either " + collision.relativeVelocity.magnitude +"= 20");
-            if(size >= maxSize && collision.relativeVelocity.magnitude >= 20 )
+            if (size >= maxSize && collision.relativeVelocity.magnitude >= 20)
             {
                 Destroy(collision.gameObject);
             }
@@ -261,16 +266,27 @@ public class Player : MonoBehaviour
             {
                 rb.AddForce((Vector2.Reflect(rb.velocity, collision.contacts[0].normal) * 10), ForceMode2D.Impulse);
             }
-=======
+        }
         if(collision.gameObject.tag == "Enemy"){
+            if (!isFlashing)
+            {
+                isFlashing = true;
+                StartCoroutine(Flash(Color.red));
+            }
             if(size<=1){
                 Destroy(this);
             } else {
                 this.size -= growthRate;
-                Camera.main.orthographicSize -= 1;
             }
-            Destroy(collision.gameObject);
->>>>>>> 91dceac1bd3b28ecb5e4582c448b78f22a43981a
         }
+    }
+
+    private IEnumerator Flash(Color color)
+    {
+        sr.color = color;
+        yield return new WaitForSeconds(.5f);
+        sr.color = Color.white;
+        isFlashing = false;
+
     }
 }

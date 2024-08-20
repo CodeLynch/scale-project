@@ -4,12 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Fruit
-<<<<<<< HEAD
-  - Cage
-=======
   - Enemy
->>>>>>> 91dceac1bd3b28ecb5e4582c448b78f22a43981a
+  - Fruit
+  - Cage
   layers:
   - Default
   - TransparentFX
@@ -18,9 +15,9 @@ TagManager:
   - Water
   - UI
   - 
-  - Background
-  - Post Particle Layer
-  - Player
+  - 
+  - 
+  - 
   - 
   - 
   - 
@@ -44,6 +41,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: UI
+    uniqueID: 720341163
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
