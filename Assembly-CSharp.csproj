@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Asteroid.cs" />
+    <Compile Include="Assets\Overlay.cs" />
     <Compile Include="Assets\Scripts\MeeleCaptors.cs" />
     <Compile Include="Assets\Scripts\Comet.cs" />
     <Compile Include="Assets\Scripts\CameraOffSet.cs" />
@@ -70,7 +71,10 @@
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\StarsBG.cs" />
     <Compile Include="Assets\Scripts\GameOver.cs" />
+    <Compile Include="Assets\GameManager.cs" />
     <Compile Include="Assets\Scripts\GameState.cs" />
+    <Compile Include="Assets\AudioManager.cs" />
+    <Compile Include="Assets\OverlayReset.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

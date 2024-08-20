@@ -50,7 +50,7 @@ MonoBehaviour:
   MovementSpeed: 5
   distanceBetween: 6
   distanceWonder: 10
-  range: 0.5
+  range: 1
   IdleAnim: {fileID: 7400000, guid: 47f28bfb3e0c50043924e9efaa1b60f0, type: 2}
   IdleTopAnim: {fileID: 7400000, guid: f5e2748f4742199439d1b1fae04f2f2d, type: 2}
   IdleBottomAnim: {fileID: 7400000, guid: b3aef0392ed03bf45b4a264a092c2e1c, type: 2}

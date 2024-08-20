@@ -10,21 +10,21 @@ public class GameState : MonoBehaviour
     private string endScene = "GameOverScene";
     public static bool playerWin = false;
 
+
+    private void Awake()
+    {
+        
+    }
     // Update is called once per frame
     void Update()
     {
         GameObject[] cages = GameObject.FindGameObjectsWithTag(itemTag);
         int itemCount = cages.Length;
 
-        if (itemCount == 0)
+        if (itemCount <= 0)
         {
-            GameOver(true);
+            GameManager.Instance.WinGame();
         }
     }
 
-    void GameOver(bool win)
-    {
-        playerWin = win;
-        SceneManager.LoadScene(endScene);
-    }
 }

@@ -274,7 +274,7 @@ public class Player : MonoBehaviour
                 StartCoroutine(Flash(Color.red));
             }
             if(size<=1){
-                Destroy(this);
+                GameManager.Instance.LoseGame();
             } else {
                 this.size -= growthRate;
             }
