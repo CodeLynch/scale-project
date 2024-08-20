@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -13,7 +12,6 @@ public class Player : MonoBehaviour
     [SerializeField] private float DashSpeed;
     [SerializeField] private float DashCooldown;
     [SerializeField] private float DashDuration;
-    [SerializeField] private TrailRenderer trail;
     [SerializeField] private AnimationClip IdleAnim;
     [SerializeField] private AnimationClip IdleTopAnim;
     [SerializeField] private AnimationClip IdleBottomAnim;
@@ -44,6 +42,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private bool isFlashing = false;
+    private TrailRenderer trail;
    
     // Start is called before the first frame update
     void Start()
@@ -51,6 +50,7 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        trail = GetComponent<TrailRenderer>();
         origDashDuration = DashDuration;
         origDashCooldown = DashCooldown;
     }
@@ -66,13 +66,21 @@ public class Player : MonoBehaviour
         if (size > 1 && size <= maxSize)
         {
             transform.localScale = new Vector2(size, size);
+            if(trail != null)
+            {
+
             trail.widthMultiplier = size;
             trail.time = size;
+            }
         }
         else
         {
-            trail.widthMultiplier = size;
+            if (trail != null)
+            {
+
+                trail.widthMultiplier = size;
             trail.time = size;
+            }
         }
 
         
@@ -169,11 +177,19 @@ public class Player : MonoBehaviour
                 DashDuration = origDashDuration;
                 rb.velocity = Vector2.zero;
                 onDashCoolDown = true;
-                trail.emitting = false;
+                if (trail != null)
+                {
+
+                    trail.emitting = false;
+                }
             }
             else
             {
-                trail.emitting = true;
+                if (trail != null)
+                {
+
+                    trail.emitting = true;
+                }
                 DashDuration -= Time.deltaTime;
                 if (Input.GetAxisRaw("Vertical") != 0)
                 {
@@ -202,7 +218,11 @@ public class Player : MonoBehaviour
         }
         else
         {
-            trail.emitting = false;
+            if (trail != null)
+            {
+
+                trail.emitting = false;
+            }
         }
         
 

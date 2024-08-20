@@ -39,8 +39,10 @@ public class ObjectiveMarker : MonoBehaviour
         {
             var target = entry.Key;
             var indicator = entry.Value;
-
-            UpdateTarget(target, indicator);
+            if(target != null && indicator != null)
+            {
+                UpdateTarget(target, indicator);
+            }
         }
     }
 

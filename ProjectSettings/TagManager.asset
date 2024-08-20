@@ -3,15 +3,20 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Cage
+  - Win
+  - Lose
+  - Enemy
+  - Fruit
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Fruits
   - Water
   - UI
-  - 
+  - Obstacles
   - 
   - 
   - 

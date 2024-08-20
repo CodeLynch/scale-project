@@ -23,6 +23,7 @@ public class GameState : MonoBehaviour
 
         if (itemCount <= 0)
         {
+            playerWin = true;
             GameManager.Instance.WinGame();
         }
     }
